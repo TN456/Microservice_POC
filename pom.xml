@@ -11,8 +11,8 @@
 	<groupId>com.microservice</groupId>
 	<artifactId>Microservice_POC</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
-	<name>Microservice_POC</name>
+    <packaging>pom</packaging>
+    <name>Microservice_POC</name>
 	<description>Hands on Microservice POC</description>
 	<modules>
 		<module>OrderService</module>
