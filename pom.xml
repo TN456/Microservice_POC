@@ -11,9 +11,14 @@
 	<groupId>com.microservice</groupId>
 	<artifactId>Microservice_POC</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Microservice_POC</name>
+    <packaging>pom</packaging>
+    <name>Microservice_POC</name>
 	<description>Hands on Microservice POC</description>
-	<properties>
+	<modules>
+		<module>OrderService</module>
+		<module>ShipmentService</module>
+	</modules>
+    <properties>
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
