@@ -1,4 +1,4 @@
-package shipmentservice;
+package com.shipmentservice;
 
 
 public class ShipmentServiceApplication {
