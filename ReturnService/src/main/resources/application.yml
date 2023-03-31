@@ -1,7 +1,6 @@
 server:
   port:
     9097
-
 spring:
   data:
     mongodb:
