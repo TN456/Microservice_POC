@@ -1,0 +1,4 @@
+package com.shipmentservice.controller;
+
+public class ShipmentController {
+}
