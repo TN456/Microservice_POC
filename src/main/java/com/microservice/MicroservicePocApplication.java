@@ -1,4 +1,4 @@
-package com.microservice.Microservice_POC;
+package com.microservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
