@@ -8,7 +8,6 @@
         <artifactId>Microservice_POC</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-
     <artifactId>OrderService</artifactId>
 
     <properties>
