@@ -1,16 +1,15 @@
-package com.shipmentservice.service;
+package com.shipmentservice.service.Impl;
 
 import com.shipmentservice.exception.ShipmentException;
 import com.shipmentservice.model.ShipmentModel;
 import com.shipmentservice.repository.ShipmentRepository;
+import com.shipmentservice.service.ShipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
-@Service
-public class ShipmentServiceImpl implements ShipmentService{
+public class ShipmentServiceImpl implements ShipmentService {
+
 
     @Autowired
     private ShipmentRepository shipmentRepository;
@@ -30,6 +29,5 @@ public class ShipmentServiceImpl implements ShipmentService{
     public ShipmentModel getShipmentById(String shipmentNumber) {
         return shipmentRepository.findById(shipmentNumber).orElseThrow(()-> new ShipmentException("ShipmentModel","shipmentNumber",shipmentNumber));
     }
-
 
 }
