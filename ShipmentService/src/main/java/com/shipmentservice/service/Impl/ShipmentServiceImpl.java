@@ -5,9 +5,11 @@ import com.shipmentservice.model.ShipmentModel;
 import com.shipmentservice.repository.ShipmentRepository;
 import com.shipmentservice.service.ShipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ShipmentServiceImpl implements ShipmentService {
 
 
