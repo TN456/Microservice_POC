@@ -10,5 +10,5 @@ public interface ReturnService {
 
     List<ReturnModel> getAllReturnOrder();
 
-    ReturnModel getReturnOrderId(String returnOrderNumber);
+    ReturnModel getReturnOrderById(String returnOrderNumber);
 }

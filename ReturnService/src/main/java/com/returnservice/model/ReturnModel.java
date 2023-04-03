@@ -15,7 +15,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document (collection="return")
+@Document (collection="returnOrder")
 public class ReturnModel {
 
     @Id

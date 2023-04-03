@@ -28,7 +28,7 @@ public class ReturnServiceImpl implements ReturnService{
     }
 
     @Override
-    public ReturnModel getReturnOrderId(String returnOrderNumber) {
+    public ReturnModel getReturnOrderById(String returnOrderNumber) {
         return null;
     }
 }
