@@ -4,6 +4,8 @@ import com.returnservice.model.ReturnModel;
 import com.returnservice.repository.ReturnRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ReturnServiceImpl implements ReturnService{
 
@@ -18,5 +20,15 @@ public class ReturnServiceImpl implements ReturnService{
     public ReturnModel saveReturnModel(ReturnModel returnModel) {
 
         return returnRepository.save(returnModel);
+    }
+
+    @Override
+    public List<ReturnModel> getAllReturnOrder() {
+        return null;
+    }
+
+    @Override
+    public ReturnModel getReturnOrderId(String returnOrderNumber) {
+        return null;
     }
 }
