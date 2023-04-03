@@ -26,7 +26,7 @@ public class ReturnController {
     }
 
     @GetMapping
-    public List<ReturnModel> gettAllReturnOrder(){
+    public List<ReturnModel> getAllReturnOrder(){
         return returnService.getAllReturnOrder();
     }
 
