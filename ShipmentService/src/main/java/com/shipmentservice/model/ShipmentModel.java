@@ -1,6 +1,7 @@
 package com.shipmentservice.model;
 
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,7 @@ import java.util.List;
 public class ShipmentModel {
 
     @Id
+   // @Schema(description = "Shipment Number")
     private String shipmentNumber;
     private String custName;
     private String address;
