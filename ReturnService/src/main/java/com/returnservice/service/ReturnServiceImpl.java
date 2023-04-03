@@ -1,5 +1,6 @@
 package com.returnservice.service;
 
+import com.returnservice.exception.ReturnException;
 import com.returnservice.model.ReturnModel;
 import com.returnservice.repository.ReturnRepository;
 import org.springframework.stereotype.Service;
@@ -24,11 +25,11 @@ public class ReturnServiceImpl implements ReturnService{
 
     @Override
     public List<ReturnModel> getAllReturnOrder() {
-        return null;
+        return returnRepository.findAll();
     }
 
     @Override
     public ReturnModel getReturnOrderById(String returnOrderNumber) {
-        return null;
+        return returnRepository.findById(returnOrderNumber).orElseThrow(()-> new ReturnException("ReturnModel","returnOrderNumber",returnOrderNumber));
     }
 }
