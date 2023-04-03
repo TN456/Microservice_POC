@@ -8,21 +8,21 @@ public class ShipmentException extends RuntimeException{
 
     private static final long serialVersionUID = 1L;
     private String resourceName;
-    private String feildName;
-    private Object feildValue;
-    public ShipmentException(String resourceName, String feildName, Object feildValue) {
-        super(String.format("%s not found with %s :%s", resourceName, feildName, feildValue));
+    private String fieldName;
+    private Object fieldValue;
+    public ShipmentException(String resourceName, String fieldName, Object fieldValue) {
+        super(String.format("%s not found with %s :%s", resourceName, fieldName, fieldValue));
         this.resourceName = resourceName;
-        this.feildName = feildName;
-        this.feildValue = feildValue;
+        this.fieldName = fieldName;
+        this.fieldValue = fieldValue;
     }
     public String getResourceName() {
         return resourceName;
     }
-    public String getFeildName() {
-        return feildName;
+    public String getFieldName() {
+        return fieldName;
     }
-    public Object getFeildValue() {
-        return feildValue;
+    public Object getFieldValue() {
+        return fieldValue;
     }
 }
