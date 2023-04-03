@@ -1,5 +1,6 @@
 package com.orderservice.controller;
 
+import com.orderservice.kafka.OrderProducer;
 import com.orderservice.model.OrderModel;
 import com.orderservice.repository.OrderRepository;
 import com.orderservice.service.OrderService;
@@ -18,8 +19,12 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private OrderProducer orderProducer;
+
     @PostMapping("/createOrder")
-    public ResponseEntity<OrderModel> saveOrder(@Valid @RequestBody OrderModel orderModel){
+    public ResponseEntity<OrderModel> saveOrder(@RequestBody OrderModel orderModel){
+        orderProducer.sendMessage(orderModel);
         return new ResponseEntity<OrderModel>(orderService.saveOrder(orderModel), HttpStatus.CREATED);
     }
 
