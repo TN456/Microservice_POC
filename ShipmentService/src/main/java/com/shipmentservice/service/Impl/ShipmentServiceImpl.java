@@ -1,6 +1,6 @@
 package com.shipmentservice.service.Impl;
 
-import com.shipmentservice.exception.ShipmentException;
+import com.shipmentservice.exception.ResourceNotFoundException;
 import com.shipmentservice.model.ShipmentModel;
 import com.shipmentservice.repository.ShipmentRepository;
 import com.shipmentservice.service.ShipmentService;
@@ -29,7 +29,7 @@ public class ShipmentServiceImpl implements ShipmentService {
 
     @Override
     public ShipmentModel getShipmentById(String shipmentNumber) {
-        return shipmentRepository.findById(shipmentNumber).orElseThrow(()-> new ShipmentException("ShipmentModel","shipmentNumber",shipmentNumber));
+        return shipmentRepository.findById(shipmentNumber).orElseThrow(()-> new ResourceNotFoundException("Shipment number not found "+shipmentNumber));
     }
 
 }

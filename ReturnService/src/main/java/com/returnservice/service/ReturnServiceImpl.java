@@ -1,6 +1,6 @@
 package com.returnservice.service;
 
-import com.returnservice.exception.ReturnException;
+import com.returnservice.exception.ResourceNotFoundException;
 import com.returnservice.model.ReturnModel;
 import com.returnservice.repository.ReturnRepository;
 import org.springframework.stereotype.Service;
@@ -30,6 +30,6 @@ public class ReturnServiceImpl implements ReturnService{
 
     @Override
     public ReturnModel getReturnOrderById(String returnOrderNumber) {
-        return returnRepository.findById(returnOrderNumber).orElseThrow(()-> new ReturnException("ReturnModel","returnOrderNumber",returnOrderNumber));
+        return returnRepository.findById(returnOrderNumber).orElseThrow(()-> new ResourceNotFoundException("Return order number not found" + returnOrderNumber));
     }
 }
