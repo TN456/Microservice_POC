@@ -1,5 +1,4 @@
 package com.shipmentservice.kafka;
-
 import com.orderservice.model.OrderModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
