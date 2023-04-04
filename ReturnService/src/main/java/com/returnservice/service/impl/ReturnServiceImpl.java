@@ -1,14 +1,15 @@
-package com.returnservice.service;
+package com.returnservice.service.impl;
 
 import com.returnservice.exception.ResourceNotFoundException;
 import com.returnservice.model.ReturnModel;
 import com.returnservice.repository.ReturnRepository;
+import com.returnservice.service.ReturnService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class ReturnServiceImpl implements ReturnService{
+public class ReturnServiceImpl implements ReturnService {
 
     private ReturnRepository returnRepository;
     public ReturnServiceImpl(ReturnRepository returnRepository) {
