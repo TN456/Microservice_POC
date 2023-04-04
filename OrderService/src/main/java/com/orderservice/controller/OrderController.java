@@ -2,14 +2,11 @@ package com.orderservice.controller;
 
 import com.orderservice.kafka.OrderProducer;
 import com.orderservice.model.OrderModel;
-import com.orderservice.repository.OrderRepository;
 import com.orderservice.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -33,7 +30,7 @@ public class OrderController {
         return orderService.getAllOrders();
     }
 
-    @GetMapping("/OrderById/{id}")
+    @GetMapping("/OrderById/{orderNumber}")
     public ResponseEntity<OrderModel> getOrderById(@PathVariable("orderNumber") String orderNumber){
         return new ResponseEntity<OrderModel>(orderService.getOrderById(orderNumber),HttpStatus.OK);
     }
