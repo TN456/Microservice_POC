@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.security.RolesAllowed;
+import javax.validation.Valid;
 import java.util.List;
 
 @RequestMapping("/api/return")
@@ -21,7 +21,7 @@ public class ReturnController {
 
     // build create employee REST API
     @PostMapping("/create")
-    public ResponseEntity<ReturnModel> saveReturnModel(@RequestBody ReturnModel returnModel){
+    public ResponseEntity<ReturnModel> saveReturnModel(@Valid @RequestBody ReturnModel returnModel){
         return new ResponseEntity<ReturnModel>(returnService.saveReturnModel(returnModel), HttpStatus.CREATED );
     }
 

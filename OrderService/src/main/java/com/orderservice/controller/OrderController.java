@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -20,7 +22,7 @@ public class OrderController {
     private OrderProducer orderProducer;
 
     @PostMapping("/createOrder")
-    public ResponseEntity<OrderModel> saveOrder(@RequestBody OrderModel orderModel){
+    public ResponseEntity<OrderModel> saveOrder(@Valid @RequestBody OrderModel orderModel){
         orderProducer.sendMessage(orderModel);
         return new ResponseEntity<OrderModel>(orderService.saveOrder(orderModel), HttpStatus.CREATED);
     }
