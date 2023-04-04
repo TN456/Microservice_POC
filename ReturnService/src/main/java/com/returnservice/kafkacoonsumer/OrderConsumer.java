@@ -3,13 +3,11 @@ package com.returnservice.kafkacoonsumer;
 
 
 import com.orderservice.model.OrderModel;
-import com.returnservice.model.ReturnModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.stereotype.Service;
-    @Service
-    public class OrderConsumer {
+
+public class OrderConsumer {
 
         private static final Logger LOGGER = LoggerFactory.getLogger(OrderConsumer.class);
         @KafkaListener(topics = "${spring.kafka.topic.name}"
