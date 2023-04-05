@@ -37,5 +37,19 @@ public class ShipmentServiceImpl implements ShipmentService {
     public ShipmentModel getShipmentById(String shipmentNumber) {
         return shipmentRepository.findById(shipmentNumber).orElseThrow(()-> new ResourceNotFoundException("Shipment number not found "+shipmentNumber));
     }
+    @Override
+    public ShipmentModel updateShipment(ShipmentModel shipmentModel, String shipmentNumber) {
+        //get existing doc from db
+        //populate new value from request to existing object
+        ShipmentModel existingShipment = shipmentRepository.findById(shipmentModel.getShipmentNumber()).get();
+        existingShipment.setShipmentLineEntries(shipmentModel.getShipmentLineEntries());
+        existingShipment.setCountry(shipmentModel.getCountry());
+        existingShipment.setState(shipmentModel.getState());
+        existingShipment.setCity(shipmentModel.getCity());
+        existingShipment.setLocality(shipmentModel.getLocality());
+        existingShipment.setAddress(shipmentModel.getAddress());
+        existingShipment.setZipcode(shipmentModel.getZipcode());
+        return shipmentRepository.save(existingShipment);
+    }
 
 }

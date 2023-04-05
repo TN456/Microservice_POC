@@ -9,6 +9,7 @@ public interface ShipmentService {
     ShipmentModel saveMyntraShipment(ShipmentModel shipmentModel);
     List<ShipmentModel> getAllShipment();
     ShipmentModel getShipmentById(String shipmentNumber);
+    ShipmentModel updateShipment(ShipmentModel shipmentModel,String shipmentNumber);
 
 
 }
