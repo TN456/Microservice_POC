@@ -44,7 +44,7 @@ public class OrderController {
     }
 
     @GetMapping("/OrderById/{orderNumber}")
-    @PreAuthorize("hasAnyRole('myntra user', 'flipkart user')")
+    @PreAuthorize("hasAuthority('admin')")
     public ResponseEntity<OrderModel> getOrderById(@PathVariable("orderNumber") String orderNumber) {
         return new ResponseEntity<OrderModel>(orderService.getOrderById(orderNumber), HttpStatus.OK);
     }
