@@ -8,7 +8,8 @@ import java.util.List;
 
 public interface OrderService {
 
-    OrderModel saveOrder(OrderModel orderModel);
+    OrderModel saveOrderMyntra(OrderModel orderModel);
+    OrderModel saveOrderFlipkart(OrderModel orderModel);
     List<OrderModel> getAllOrders();
     OrderModel getOrderById(String orderNumber);
 }
