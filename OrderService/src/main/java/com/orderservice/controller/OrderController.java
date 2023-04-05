@@ -22,18 +22,19 @@ public class OrderController {
     private OrderProducer orderProducer;
 
     @PostMapping("/createOrder")
-    public ResponseEntity<OrderModel> saveOrder(@Valid @RequestBody OrderModel orderModel){
-        orderProducer.sendMessage(orderModel);
-        return new ResponseEntity<OrderModel>(orderService.saveOrder(orderModel), HttpStatus.CREATED);
+    public ResponseEntity<OrderModel> saveOrder(@Valid @RequestBody OrderModel orderModel) {
+        OrderModel savedOrder = orderService.saveOrder(orderModel);
+        orderProducer.sendMessage(savedOrder);
+        return new ResponseEntity<OrderModel>(savedOrder, HttpStatus.CREATED);
     }
 
     @GetMapping("/getAllOrders")
-    public List<OrderModel> getAllOrders(){
+    public List<OrderModel> getAllOrders() {
         return orderService.getAllOrders();
     }
 
     @GetMapping("/OrderById/{orderNumber}")
-    public ResponseEntity<OrderModel> getOrderById(@PathVariable("orderNumber") String orderNumber){
-        return new ResponseEntity<OrderModel>(orderService.getOrderById(orderNumber),HttpStatus.OK);
+    public ResponseEntity<OrderModel> getOrderById(@PathVariable("orderNumber") String orderNumber) {
+        return new ResponseEntity<OrderModel>(orderService.getOrderById(orderNumber), HttpStatus.OK);
     }
 }
