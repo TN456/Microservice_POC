@@ -35,7 +35,6 @@ public class OrderModel {
     @NotNull(message = "Customer mobile number cannot be empty")
     private String mobile;
     private String paymentMethod;
-    @NotNull(message = "source cannot be empty")
     private String source;
 
     @CreatedDate
