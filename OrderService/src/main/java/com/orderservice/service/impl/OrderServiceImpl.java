@@ -17,10 +17,16 @@ public class OrderServiceImpl implements OrderService {
     private OrderRepository orderRepository;
 
     @Override
-    public OrderModel saveOrder(OrderModel orderModel) {
+    public OrderModel saveOrderMyntra(OrderModel orderModel) {
+        orderModel.setSource("Myntra");
         return orderRepository.save(orderModel);
     }
 
+    @Override
+    public OrderModel saveOrderFlipkart(OrderModel orderModel) {
+        orderModel.setSource("Flipkart");
+        return orderRepository.save(orderModel);
+    }
     @Override
     public List<OrderModel> getAllOrders() {
         return orderRepository.findAll();
