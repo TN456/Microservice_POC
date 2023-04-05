@@ -37,7 +37,7 @@ public class ShipmentModel {
     private String mobile;
     @NotNull(message = "order number cannot be empty")
     private String orderNumber;
-    @NotNull(message = "source cannot be empty")
+    //@NotNull(message = "source cannot be empty")
     private String source;
     @CreatedDate
     private Date shippedOn;
