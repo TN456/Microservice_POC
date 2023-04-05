@@ -21,6 +21,17 @@
             <artifactId>OrderService</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
+
+
+        <dependency>
+            <groupId>com.microservice</groupId>
+            <artifactId>ShipmentService</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
     </dependencies>
+
+
 
 </project>
