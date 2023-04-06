@@ -35,6 +35,7 @@ public class ReturnModel {
     @NotNull(message = "Customer mobile number cannot be empty")
     private String mobile;
 
+    private String status;
     private String source;
     @CreatedDate
     private Date returnON;
