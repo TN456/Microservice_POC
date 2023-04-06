@@ -53,7 +53,8 @@ public class ShipmentController {
     @PutMapping("/updateShipment/{shipmentNumber}")
     @PreAuthorize("hasAuthority('Admin')")
     public ResponseEntity<ShipmentModel> updateShipment(@RequestBody ShipmentModel shipmentModel,@PathVariable("shipmentNumber") String shipmentNumber){
-        return new ResponseEntity<ShipmentModel>(shipmentService.updateShipment(shipmentModel, shipmentNumber) ,HttpStatus.OK);
+        shipmentProducer.sendMessage(shipmentService.updateShipment(shipmentModel, shipmentNumber));
+        return new ResponseEntity<ShipmentModel>(shipmentService.updateShipment(shipmentModel, shipmentNumber),HttpStatus.OK);
     }
 
 }

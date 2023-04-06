@@ -48,6 +48,8 @@ public class ShipmentServiceImpl implements ShipmentService {
         existingShipment.setLocality(shipmentModel.getLocality());
         existingShipment.setAddress(shipmentModel.getAddress());
         existingShipment.setZipcode(shipmentModel.getZipcode());
+        existingShipment.setUpdatedShipmentOn(shipmentModel.getUpdatedShipmentOn());
+        existingShipment.setShipmentLineEntries(shipmentModel.getShipmentLineEntries());
         return shipmentRepository.save(existingShipment);
     }
 
