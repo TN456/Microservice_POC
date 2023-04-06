@@ -1,5 +1,6 @@
 package com.shipmentservice.service.Impl;
 
+import com.orderservice.model.OrderModel;
 import com.shipmentservice.exception.ResourceNotFoundException;
 import com.shipmentservice.model.ShipmentModel;
 import com.shipmentservice.repository.ShipmentRepository;
@@ -39,17 +40,25 @@ public class ShipmentServiceImpl implements ShipmentService {
     }
     @Override
     public ShipmentModel updateShipment(ShipmentModel shipmentModel, String shipmentNumber) {
-        //get existing doc from db
-        //populate new value from request to existing object
-        ShipmentModel existingShipment = shipmentRepository.findById(shipmentModel.getShipmentNumber()).get();
-        existingShipment.setCountry(shipmentModel.getCountry());
-        existingShipment.setState(shipmentModel.getState());
-        existingShipment.setCity(shipmentModel.getCity());
-        existingShipment.setLocality(shipmentModel.getLocality());
-        existingShipment.setAddress(shipmentModel.getAddress());
-        existingShipment.setZipcode(shipmentModel.getZipcode());
-        existingShipment.setUpdatedShipmentOn(shipmentModel.getUpdatedShipmentOn());
-        existingShipment.setShipmentLineEntries(shipmentModel.getShipmentLineEntries());
+        ShipmentModel existingShipment = getShipmentById(shipmentNumber);
+        existingShipment.setCustName(shipmentModel.getCustName() != null ? shipmentModel.getCustName() : existingShipment
+                .getCustName());
+        existingShipment.setAddress(shipmentModel.getAddress() != null ? shipmentModel.getAddress() : existingShipment
+                .getAddress());
+        existingShipment.setCity(shipmentModel.getCity() != null ? shipmentModel.getCity() : existingShipment
+                .getCity());
+        existingShipment.setLocality(shipmentModel.getLocality() != null ? shipmentModel.getLocality() : existingShipment
+                .getLocality());
+        existingShipment.setState(shipmentModel.getState() != null ? shipmentModel.getState() : existingShipment
+                .getState());
+        existingShipment.setZipcode(shipmentModel.getZipcode() != null ? shipmentModel.getZipcode() : existingShipment
+                .getZipcode());
+        existingShipment.setCountry(shipmentModel.getCountry() != null ? shipmentModel.getCountry() : existingShipment
+                .getCountry());
+        existingShipment.setMobile(shipmentModel.getMobile() != null ? shipmentModel.getMobile() : existingShipment
+                .getMobile());
+        existingShipment.setShipmentLineEntries(shipmentModel.getShipmentLineEntries() != null ? shipmentModel.getShipmentLineEntries() : existingShipment
+                .getShipmentLineEntries());
         return shipmentRepository.save(existingShipment);
     }
 
