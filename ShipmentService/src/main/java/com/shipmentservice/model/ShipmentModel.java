@@ -40,6 +40,7 @@ public class ShipmentModel {
     private String orderNumber;
     //@NotNull(message = "source cannot be empty")
     private String source;
+    private String status;
 
     @CreatedDate
     private Date shippedOn;

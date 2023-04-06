@@ -21,11 +21,13 @@ public class ShipmentServiceImpl implements ShipmentService {
     @Override
     public ShipmentModel saveMyntraShipment(ShipmentModel shipmentModel) {
         shipmentModel.setSource("Myntra");
+        shipmentModel.setStatus("Shipped");
         return shipmentRepository.save(shipmentModel);
     }
     @Override
     public ShipmentModel saveFlipkartShipment(ShipmentModel shipmentModel) {
         shipmentModel.setSource("Flipkart");
+        shipmentModel.setStatus("Shipped");
         return shipmentRepository.save(shipmentModel);
     }
 
