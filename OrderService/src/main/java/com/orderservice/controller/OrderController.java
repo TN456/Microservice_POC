@@ -48,4 +48,12 @@ public class OrderController {
     public ResponseEntity<OrderModel> getOrderById(@PathVariable("orderNumber") String orderNumber) {
         return new ResponseEntity<OrderModel>(orderService.getOrderById(orderNumber), HttpStatus.OK);
     }
+
+    @PutMapping("/updateOrder/{orderNumber}")
+    @PreAuthorize("hasAuthority('Admin')")
+    public ResponseEntity<OrderModel> updateOrder(@RequestBody OrderModel orderModel, @PathVariable("orderNumber") String orderNumber) {
+        OrderModel updateOrder = orderService.updateOrder(orderModel,orderNumber);
+        orderProducer.sendMessage(orderService.updateOrder(orderModel, orderNumber));
+        return new ResponseEntity<OrderModel>(updateOrder, HttpStatus.OK);
+    }
 }
