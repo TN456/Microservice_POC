@@ -22,12 +22,15 @@ public class ReturnServiceImpl implements ReturnService {
     @Override
     public ReturnModel saveMyntraReturn(ReturnModel returnModel) {
         returnModel.setSource("Myntra");
+        returnModel.setStatus("returned");
         return returnRepository.save(returnModel);
     }
 
     @Override
     public ReturnModel saveFlipkartReturn(ReturnModel returnModel) {
         returnModel.setSource("Flipkart");
+        returnModel.setStatus("returned");
+
         return returnRepository.save(returnModel);
     }
 
