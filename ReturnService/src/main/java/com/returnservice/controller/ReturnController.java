@@ -23,7 +23,7 @@ public class ReturnController {
 
 
     @PostMapping("/createReturn/myntra")
-    @PreAuthorize("hasAuthority('myntraUser')")
+    @PreAuthorize("hasAuthority('Myntra User')")
     public ResponseEntity<ReturnModel> saveMyntraReturn(@Valid @RequestBody ReturnModel returnModel ) {
         ReturnModel savedReturn = returnService.saveMyntraReturn(returnModel);
         returnproducer.sendMessage(savedReturn);
@@ -31,7 +31,7 @@ public class ReturnController {
     }
 
     @PostMapping("/createReturn/flipkartFlipkart")
-    @PreAuthorize("hasAuthority('flipkartUser')")
+    @PreAuthorize("hasAuthority('Flipkart User')")
     public ResponseEntity<ReturnModel> saveReturn(@Valid @RequestBody ReturnModel returnModel ) {
         ReturnModel savedReturn = returnService.saveFlipkartReturn(returnModel);
         returnproducer.sendMessage(savedReturn);
@@ -40,12 +40,12 @@ public class ReturnController {
 
 
     @GetMapping("/all")
-    @PreAuthorize("hasAuthority('admin')")
+    @PreAuthorize("hasAuthority('Admin')")
     public List<ReturnModel> getAllReturnOrder(){
         return returnService.getAllReturnOrder();
     }
 
-    @PreAuthorize("hasAuthority('admin')")
+    @PreAuthorize("hasAuthority('Admin')")
     @GetMapping("{returnOrderNumber}")
     public ResponseEntity<ReturnModel> getReturnOrderById(@PathVariable("returnOderNumber") String returnOrderNumber){
         return new ResponseEntity<ReturnModel>(returnService.getReturnOrderById(returnOrderNumber), HttpStatus.OK);

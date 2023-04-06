@@ -42,7 +42,6 @@ public class ShipmentServiceImpl implements ShipmentService {
         //get existing doc from db
         //populate new value from request to existing object
         ShipmentModel existingShipment = shipmentRepository.findById(shipmentModel.getShipmentNumber()).get();
-        existingShipment.setShipmentLineEntries(shipmentModel.getShipmentLineEntries());
         existingShipment.setCountry(shipmentModel.getCountry());
         existingShipment.setState(shipmentModel.getState());
         existingShipment.setCity(shipmentModel.getCity());

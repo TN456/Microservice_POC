@@ -22,7 +22,7 @@ public class OrderController {
     private OrderProducer orderProducer;
 
     @PostMapping("/createOrder/myntra")
-    @PreAuthorize("hasAuthority('myntra user')")
+    @PreAuthorize("hasAuthority('Myntra User')")
     public ResponseEntity<OrderModel> saveOrderMyntra(@Valid @RequestBody OrderModel orderModel) {
         OrderModel savedOrder = orderService.saveOrderMyntra(orderModel);
         orderProducer.sendMessage(savedOrder);
@@ -30,7 +30,7 @@ public class OrderController {
     }
 
     @PostMapping("/createOrder/flipkart")
-    @PreAuthorize("hasAuthority('flipkart user')")
+    @PreAuthorize("hasAuthority('Flipkart User')")
     public ResponseEntity<OrderModel> saveOrderFlipKart(@Valid @RequestBody OrderModel orderModel) {
         OrderModel savedOrder = orderService.saveOrderFlipkart(orderModel);
         orderProducer.sendMessage(savedOrder);
@@ -38,13 +38,13 @@ public class OrderController {
     }
 
     @GetMapping("/getAllOrders")
-    @PreAuthorize("hasAuthority('admin')")
+    @PreAuthorize("hasAuthority('Admin')")
     public List<OrderModel> getAllOrders() {
         return orderService.getAllOrders();
     }
 
     @GetMapping("/OrderById/{orderNumber}")
-    @PreAuthorize("hasAuthority('admin')")
+    @PreAuthorize("hasAuthority('Admin')")
     public ResponseEntity<OrderModel> getOrderById(@PathVariable("orderNumber") String orderNumber) {
         return new ResponseEntity<OrderModel>(orderService.getOrderById(orderNumber), HttpStatus.OK);
     }
