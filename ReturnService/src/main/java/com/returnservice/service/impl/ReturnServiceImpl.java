@@ -52,7 +52,6 @@ public class ReturnServiceImpl implements ReturnService {
         existingReturn.setState(returnModel.getState());
         existingReturn.setCity(returnModel.getCity());
         existingReturn.setLocality(returnModel.getLocality());
-        existingReturn.setAddress(returnModel.getAddress());
         existingReturn.setZipcode(returnModel.getZipcode());
         return returnRepository.save(existingReturn);
     }
