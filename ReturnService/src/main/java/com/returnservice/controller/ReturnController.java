@@ -54,6 +54,7 @@ public class ReturnController {
     @PutMapping("/updateReturn/{returnOrderNumber}")
     @PreAuthorize("hasAuthority('Admin')")
     public ResponseEntity<ReturnModel> updateReturn(@RequestBody ReturnModel returnModel , @PathVariable("returnOrderNumber") String returnOrderNumber){
+        returnproducer.sendMessage((returnService.updateReturn(returnModel,returnOrderNumber)));
         return new ResponseEntity<ReturnModel>(returnService.updateReturn(returnModel, returnOrderNumber) ,HttpStatus.OK);
     }
 
