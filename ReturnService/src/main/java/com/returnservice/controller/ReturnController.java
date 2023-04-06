@@ -51,5 +51,11 @@ public class ReturnController {
         return new ResponseEntity<ReturnModel>(returnService.getReturnOrderById(returnOrderNumber), HttpStatus.OK);
     }
 
+    @PutMapping("/updateReturn/{returnOrderNumber}")
+    @PreAuthorize("hasAuthority('Admin')")
+    public ResponseEntity<ReturnModel> updateReturn(@RequestBody ReturnModel returnModel , @PathVariable("returnOrderNumber") String returnOrderNumber){
+        return new ResponseEntity<ReturnModel>(returnService.updateReturn(returnModel, returnOrderNumber) ,HttpStatus.OK);
+    }
+
 
 }

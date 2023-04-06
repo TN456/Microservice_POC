@@ -6,6 +6,7 @@ import com.returnservice.exception.ResourceNotFoundException;
 import com.returnservice.model.ReturnModel;
 import com.returnservice.repository.ReturnRepository;
 import com.returnservice.service.ReturnService;
+import com.shipmentservice.model.ShipmentModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +40,21 @@ public class ReturnServiceImpl implements ReturnService {
     @Override
     public ReturnModel getReturnOrderById(String returnOrderNumber) {
         return returnRepository.findById(returnOrderNumber).orElseThrow(()-> new ResourceNotFoundException("Return order number not found" + returnOrderNumber));
+    }
+
+
+
+    public ReturnModel updateReturn(ReturnModel returnModel, String returnOrderNumber) {
+        //get existing doc from db
+        //populate new value from request to existing object
+        ReturnModel existingReturn = returnRepository.findById(returnModel.getReturnOrderNumber()).get();
+        existingReturn.setCountry(returnModel.getCountry());
+        existingReturn.setState(returnModel.getState());
+        existingReturn.setCity(returnModel.getCity());
+        existingReturn.setLocality(returnModel.getLocality());
+        existingReturn.setAddress(returnModel.getAddress());
+        existingReturn.setZipcode(returnModel.getZipcode());
+        return returnRepository.save(existingReturn);
     }
 
 }
