@@ -46,27 +46,27 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderModel updateOrder(OrderModel orderModel, String orderNumber) {
-        OrderModel exsistingOrder = getOrderById(orderNumber);
-        exsistingOrder.setCustName(orderModel.getCustName() != null ? orderModel.getCustName() : exsistingOrder
+        OrderModel existingOrder = getOrderById(orderNumber);
+        existingOrder.setCustName(orderModel.getCustName() != null ? orderModel.getCustName() : existingOrder
                 .getCustName());
-        exsistingOrder.setAddress(orderModel.getAddress() != null ? orderModel.getAddress() : exsistingOrder
+        existingOrder.setAddress(orderModel.getAddress() != null ? orderModel.getAddress() : existingOrder
                 .getAddress());
-        exsistingOrder.setCity(orderModel.getCity() != null ? orderModel.getCity() : exsistingOrder
+        existingOrder.setCity(orderModel.getCity() != null ? orderModel.getCity() : existingOrder
                 .getCity());
-        exsistingOrder.setLocality(orderModel.getLocality() != null ? orderModel.getLocality() : exsistingOrder
+        existingOrder.setLocality(orderModel.getLocality() != null ? orderModel.getLocality() : existingOrder
                 .getLocality());
-        exsistingOrder.setState(orderModel.getState() != null ? orderModel.getState() : exsistingOrder
+        existingOrder.setState(orderModel.getState() != null ? orderModel.getState() : existingOrder
                 .getState());
-        exsistingOrder.setEmail(orderModel.getEmail() != null ? orderModel.getEmail() : exsistingOrder
+        existingOrder.setEmail(orderModel.getEmail() != null ? orderModel.getEmail() : existingOrder
                 .getEmail());
-        exsistingOrder.setZipcode(orderModel.getZipcode() != null ? orderModel.getZipcode() : exsistingOrder
+        existingOrder.setZipcode(orderModel.getZipcode() != null ? orderModel.getZipcode() : existingOrder
                 .getZipcode());
-        exsistingOrder.setCountry(orderModel.getCountry() != null ? orderModel.getCountry() : exsistingOrder
+        existingOrder.setCountry(orderModel.getCountry() != null ? orderModel.getCountry() : existingOrder
                 .getCountry());
-        exsistingOrder.setMobile(orderModel.getMobile() != null ? orderModel.getMobile() : exsistingOrder
+        existingOrder.setMobile(orderModel.getMobile() != null ? orderModel.getMobile() : existingOrder
                 .getMobile());
-        exsistingOrder.setOrderLineEntries(orderModel.getOrderLineEntries() != null ? orderModel.getOrderLineEntries() : exsistingOrder
+        existingOrder.setOrderLineEntries(orderModel.getOrderLineEntries() != null ? orderModel.getOrderLineEntries() : existingOrder
                 .getOrderLineEntries());
-        return orderRepository.save(exsistingOrder);
+        return orderRepository.save(existingOrder);
     }
 }
