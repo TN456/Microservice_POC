@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
@@ -48,6 +49,7 @@ public class OrderModel {
     private String country;
     @NotNull(message = "Customer mobile number cannot be empty")
     @Schema(description = "Customer Mobile number")
+    @Size(max = 10,message = "Mobile number should be of 10 digits")
     private String mobile;
     @Schema(description = "Customer Payment Method")
     private String paymentMethod;
@@ -78,6 +80,7 @@ public class OrderModel {
         private double price;
         @NotNull(message = "Quantity cannot be empty")
         @Schema(description = "Item Quantity")
+        @Size(min = 1)
         private int quantity;
     }
 
