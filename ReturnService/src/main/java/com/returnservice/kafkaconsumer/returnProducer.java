@@ -14,25 +14,25 @@ import org.springframework.stereotype.Service;
 public class returnProducer {
 
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(returnProducer.class);
-    private NewTopic newTopic;
+private static final Logger LOGGER = LoggerFactory.getLogger(returnProducer.class);
+private NewTopic newTopic;
 
 
-    private KafkaTemplate<String, ReturnModel> returnModelKafkaTemplate;
+private KafkaTemplate<String, ReturnModel> returnModelKafkaTemplate;
 
-    public returnProducer(NewTopic newTopic, KafkaTemplate<String, ReturnModel> returnModelKafkaTemplate) {
-        this.newTopic = newTopic;
-        this.returnModelKafkaTemplate = returnModelKafkaTemplate;
-    }
+public returnProducer(NewTopic newTopic, KafkaTemplate<String, ReturnModel> returnModelKafkaTemplate) {
+this.newTopic = newTopic;
+this.returnModelKafkaTemplate = returnModelKafkaTemplate;
+}
 
-    public void sendMessage(ReturnModel returnModel){
-        LOGGER.info(String.format("Return Event => %s",returnModel.toString()));
-        Message<ReturnModel> message = MessageBuilder
-                .withPayload(returnModel)
-                .setHeader(KafkaHeaders.TOPIC, newTopic.name())
-                .build();
-        returnModelKafkaTemplate.send(message);
-    }
+public void sendMessage(ReturnModel returnModel){
+LOGGER.info(String.format("Return Event => %s",returnModel.toString()));
+Message<ReturnModel> message = MessageBuilder
+.withPayload(returnModel)
+.setHeader(KafkaHeaders.TOPIC, newTopic.name())
+.build();
+returnModelKafkaTemplate.send(message);
+}
 
 
 

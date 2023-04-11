@@ -11,13 +11,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class ShipmentConsumer {
 
-        private static final Logger LOGGER = LoggerFactory.getLogger(ShipmentConsumer.class);
-        @KafkaListener(topics = "${spring.kafka.topic.name}"
-                , groupId = "${spring.kafka.consumer.group-id}")
-        public static void consume(ShipmentModel shipmentModel) {
-            LOGGER.info(String.format("Shipment Details Reached : %s", shipmentModel.toString()));
-        }
-    }
+private static final Logger LOGGER = LoggerFactory.getLogger(ShipmentConsumer.class);
+@KafkaListener(topics = "${spring.kafka.topic.name}"
+, groupId = "${spring.kafka.consumer.group-id}")
+public static void consume(ShipmentModel shipmentModel) {
+LOGGER.info(String.format("Shipment Details Reached : %s", shipmentModel.toString()));
+}
+}
 
 
 
