@@ -8,12 +8,12 @@ import org.springframework.kafka.config.TopicBuilder;
 @Configuration
 public class kafkaTopicConfig {
 
-    @Value("return_topic")
-    private String topicName;
+@Value("return_topic")
+private String topicName;
 
-    @Bean
-    public NewTopic topic(){
+@Bean
+public NewTopic topic(){
 
-        return TopicBuilder.name(topicName).build();
-    }
+return TopicBuilder.name(topicName).build();
+}
 }
