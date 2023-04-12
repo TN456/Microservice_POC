@@ -20,8 +20,8 @@ public class ReturnServiceImpl implements ReturnService {
 
     @Override
     public ReturnModel saveMyntraReturn(ReturnModel returnModel) {
-        String orderNumber = generateOrderNumberForMyntra();
-        returnModel.setOrderNumber(orderNumber);
+        String returnOrderNumber = generateOrderNumberForMyntra();
+        returnModel.setReturnOrderNumber(returnOrderNumber);
         returnModel.setSource("Myntra");
         returnModel.setStatus("RETURNED");
         returnModel.setReturnON(new Date());
@@ -30,8 +30,8 @@ public class ReturnServiceImpl implements ReturnService {
 
     @Override
     public ReturnModel saveFlipkartReturn(ReturnModel returnModel) {
-        String orderNumber = generateOrderNumberForFlipkart();
-        returnModel.setOrderNumber(orderNumber);
+        String returnOrderNumber = generateOrderNumberForFlipkart();
+        returnModel.setReturnOrderNumber(returnOrderNumber);
         returnModel.setSource("Flipkart");
         returnModel.setStatus("RETURNED");
         returnModel.setReturnON(new Date());
@@ -40,11 +40,11 @@ public class ReturnServiceImpl implements ReturnService {
     }
     private String generateOrderNumberForMyntra() {
         int count = (int) returnRepository.count();
-        return "MYN" + String.format("%03d", count+1);
+        return "RETMYN" + String.format("%03d", count+1);
     }
     private String generateOrderNumberForFlipkart() {
         int count = (int) returnRepository.count();
-        return "FLP" + String.format("%03d", count+1);
+        return "RETFLP" + String.format("%03d", count+1);
     }
 
     @Override
