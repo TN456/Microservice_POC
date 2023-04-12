@@ -14,6 +14,10 @@ public interface ReturnService {
     ReturnModel saveMyntraReturn(ReturnModel returnModel);
     ReturnModel saveFlipkartReturn(ReturnModel returnModel);
 
+    ReturnModel saveOrderMyntra(ReturnModel returnModel);
+
+    ReturnModel saveOrderFlipkart(ReturnModel returnModel);
+
     List<ReturnModel> getAllReturnOrder();
 
     ReturnModel getReturnOrderById(String returnOrderNumber);

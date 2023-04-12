@@ -8,6 +8,7 @@ import com.returnservice.service.ReturnService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -31,6 +32,38 @@ public class ReturnServiceImpl implements ReturnService {
 
         return returnRepository.save(returnModel);
     }
+    private String generateOrderNumberForMyntra() {
+        int count = (int) returnRepository.count();
+        return "MYN" + String.format("%03d", count+1);
+    }
+    private String generateOrderNumberForFlipkart() {
+        int count = (int) returnRepository.count();
+        return "FLP" + String.format("%03d", count+1);
+    }
+
+    @Override
+    public ReturnModel saveOrderMyntra(ReturnModel returnModel) {
+        String orderNumber = generateOrderNumberForMyntra();
+        returnModel.setOrderNumber(orderNumber);
+        returnModel.setStatus("CREATED");
+        returnModel.setSource("Myntra");
+        returnModel.setReturnON(new Date());
+        return returnRepository.save(returnModel);
+    }
+
+    @Override
+    public ReturnModel saveOrderFlipkart(ReturnModel returnModel) {
+        String orderNumber = generateOrderNumberForFlipkart();
+        returnModel.setOrderNumber(orderNumber);
+        returnModel.setStatus("CREATED");
+        returnModel.setSource("Flipkart");
+        returnModel.setReturnON(new Date());
+        return returnRepository.save(returnModel);
+    }
+
+
+
+
 
 
     @Override
