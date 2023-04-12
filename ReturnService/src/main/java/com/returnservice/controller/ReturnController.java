@@ -63,7 +63,7 @@ public class ReturnController {
     }
 
 
-    @GetMapping("/all")
+    @GetMapping(value = "/all")
     @PreAuthorize("hasAuthority('Admin')")
     @Operation(
             summary = "Get All Return REST API",
