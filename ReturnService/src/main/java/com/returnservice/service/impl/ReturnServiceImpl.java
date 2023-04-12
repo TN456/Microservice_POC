@@ -20,15 +20,21 @@ public class ReturnServiceImpl implements ReturnService {
 
     @Override
     public ReturnModel saveMyntraReturn(ReturnModel returnModel) {
+        String orderNumber = generateOrderNumberForMyntra();
+        returnModel.setOrderNumber(orderNumber);
         returnModel.setSource("Myntra");
         returnModel.setStatus("RETURNED");
+        returnModel.setReturnON(new Date());
         return returnRepository.save(returnModel);
     }
 
     @Override
     public ReturnModel saveFlipkartReturn(ReturnModel returnModel) {
+        String orderNumber = generateOrderNumberForFlipkart();
+        returnModel.setOrderNumber(orderNumber);
         returnModel.setSource("Flipkart");
         returnModel.setStatus("RETURNED");
+        returnModel.setReturnON(new Date());
 
         return returnRepository.save(returnModel);
     }
@@ -40,31 +46,6 @@ public class ReturnServiceImpl implements ReturnService {
         int count = (int) returnRepository.count();
         return "FLP" + String.format("%03d", count+1);
     }
-
-    @Override
-    public ReturnModel saveOrderMyntra(ReturnModel returnModel) {
-        String orderNumber = generateOrderNumberForMyntra();
-        returnModel.setOrderNumber(orderNumber);
-        returnModel.setStatus("CREATED");
-        returnModel.setSource("Myntra");
-        returnModel.setReturnON(new Date());
-        return returnRepository.save(returnModel);
-    }
-
-    @Override
-    public ReturnModel saveOrderFlipkart(ReturnModel returnModel) {
-        String orderNumber = generateOrderNumberForFlipkart();
-        returnModel.setOrderNumber(orderNumber);
-        returnModel.setStatus("CREATED");
-        returnModel.setSource("Flipkart");
-        returnModel.setReturnON(new Date());
-        return returnRepository.save(returnModel);
-    }
-
-
-
-
-
 
     @Override
     public List<ReturnModel> getAllReturnOrder() {
