@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,7 @@ public class OrderController {
     @Autowired
     private OrderProducer orderProducer;
 
-    @PostMapping("/createOrder/myntra")
+//    @PostMapping("/createOrder/myntra")
     @PreAuthorize("hasAuthority('Myntra User')")
     @Operation(
             summary = "Create Myntra Order REST API",
@@ -38,13 +39,16 @@ public class OrderController {
             responseCode = "201",
             description = "HTTP Status 201 CREATED"
     )
+    @PostMapping(value = "/createOrder/myntra", consumes = { MediaType.APPLICATION_XML_VALUE }, produces = {
+            MediaType.APPLICATION_JSON_VALUE })
     public ResponseEntity<OrderModel> saveOrderMyntra(@Valid @RequestBody OrderModel orderModel) {
         OrderModel savedOrder = orderService.saveOrderMyntra(orderModel);
         orderProducer.sendMessage(savedOrder);
         return new ResponseEntity<OrderModel>(savedOrder, HttpStatus.CREATED);
     }
 
-    @PostMapping("/createOrder/flipkart")
+    @PostMapping(value = "/createOrder/flipkart", consumes = { MediaType.APPLICATION_XML_VALUE }, produces = {
+            MediaType.APPLICATION_JSON_VALUE })
     @PreAuthorize("hasAuthority('Flipkart User')")
     @Operation(
             summary = "Create Flipkart Order REST API",
