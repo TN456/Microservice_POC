@@ -7,6 +7,7 @@ import com.orderservice.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,15 +19,29 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderModel saveOrderMyntra(OrderModel orderModel) {
+        String orderNumber = generateOrderNumberForMyntra();
+        orderModel.setOrderNumber(orderNumber);
         orderModel.setStatus("CREATED");
         orderModel.setSource("Myntra");
+        orderModel.setCreatedAt(new Date());
         return orderRepository.save(orderModel);
     }
 
+    private String generateOrderNumberForMyntra() {
+        int count = (int) orderRepository.count();
+        return "MYN" + String.format("%03d", count+1);
+    }
+    private String generateOrderNumberForFlipkart() {
+        int count = (int) orderRepository.count();
+        return "FLP" + String.format("%03d", count+1);
+    }
     @Override
     public OrderModel saveOrderFlipkart(OrderModel orderModel) {
+        String orderNumber = generateOrderNumberForFlipkart();
+        orderModel.setOrderNumber(orderNumber);
         orderModel.setStatus("CREATED");
         orderModel.setSource("Flipkart");
+        orderModel.setCreatedAt(new Date());
         return orderRepository.save(orderModel);
     }
 
