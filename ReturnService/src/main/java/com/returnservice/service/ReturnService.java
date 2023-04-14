@@ -10,8 +10,8 @@ import java.util.List;
 public interface ReturnService {
 
 
-
     ReturnModel saveMyntraReturn(ReturnModel returnModel);
+
     ReturnModel saveFlipkartReturn(ReturnModel returnModel);
 
     List<ReturnModel> getAllReturnOrder();
@@ -19,8 +19,6 @@ public interface ReturnService {
     ReturnModel getReturnOrderById(String returnOrderNumber);
 
     ReturnModel updateReturn(ReturnModel returnModel, String returnOrderNumber);
-
-
 
 
 }

@@ -12,8 +12,8 @@ public class ContentConfig implements WebMvcConfigurer {
         configurer.favorParameter(true)
                 .parameterName("mediaType")
                 .defaultContentType(MediaType.APPLICATION_JSON)
-                .mediaType("xml",MediaType.APPLICATION_XML)
-                .mediaType("json",MediaType.APPLICATION_JSON);
+                .mediaType("xml", MediaType.APPLICATION_XML)
+                .mediaType("json", MediaType.APPLICATION_JSON);
 
     }
 }

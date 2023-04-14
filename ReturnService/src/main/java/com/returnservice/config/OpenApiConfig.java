@@ -12,27 +12,27 @@ import java.util.List;
 
 @Configuration
 public class OpenApiConfig {
-@Value("http://localhost:9098")
-private String devUrl;
+    @Value("http://localhost:9098")
+    private String devUrl;
 
-@Bean
-public OpenAPI myAPI() {
-Server devServer = new Server();
-devServer.setUrl(devUrl);
-devServer.setDescription("Server URL in Development environment");
+    @Bean
+    public OpenAPI myAPI() {
+        Server devServer = new Server();
+        devServer.setUrl(devUrl);
+        devServer.setDescription("Server URL in Development environment");
 
-Contact contact = new Contact();
-contact.setEmail("adarshmaharana2000@gmail.com");
-contact.setName("Ady");
+        Contact contact = new Contact();
+        contact.setEmail("adarshmaharana2000@gmail.com");
+        contact.setName("Ady");
 
-Info info = new Info().title("Spring Boot Microservices API").version("1.0").contact(contact)
+        Info info = new Info().title("Spring Boot Microservices API").version("1.0").contact(contact)
 
-.description("This API exposes endpoints to manage microservices.");
+                .description("This API exposes endpoints to manage microservices.");
 
-return new OpenAPI().info(info).servers(List.of(devServer));
+        return new OpenAPI().info(info).servers(List.of(devServer));
 
 
-}
+    }
 }
 
 

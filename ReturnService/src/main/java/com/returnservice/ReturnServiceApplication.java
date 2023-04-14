@@ -7,8 +7,8 @@ import org.springframework.data.mongodb.config.EnableMongoAuditing;
 @SpringBootApplication
 @EnableMongoAuditing
 
-public class ReturnServiceApplication{
-public static void main(String[] args) {
-SpringApplication.run(ReturnServiceApplication.class);
-}
+public class ReturnServiceApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(ReturnServiceApplication.class);
+    }
 }

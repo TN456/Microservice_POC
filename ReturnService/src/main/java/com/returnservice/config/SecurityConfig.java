@@ -22,39 +22,39 @@ import java.util.Arrays;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @Import(KeycloakSpringBootConfigResolver.class)
 public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
-@Autowired
-public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-KeycloakAuthenticationProvider authenticationProvider=new KeycloakAuthenticationProvider();
-authenticationProvider.setGrantedAuthoritiesMapper(new SimpleAuthorityMapper());
-auth.authenticationProvider(keycloakAuthenticationProvider());
-}
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        KeycloakAuthenticationProvider authenticationProvider = new KeycloakAuthenticationProvider();
+        authenticationProvider.setGrantedAuthoritiesMapper(new SimpleAuthorityMapper());
+        auth.authenticationProvider(keycloakAuthenticationProvider());
+    }
 
-/**
-* Defines the session authentication strategy.
-*/
-private static final String[] SWAGGER_WHITELIST = {
-"/v3/api-docs/**",
-"/swagger-ui/**",
-"/swagger-ui.html",
-};
-@Bean
-@Override
-protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
-return new RegisterSessionAuthenticationStrategy(buildSessionRegistry());
-}
+    /**
+     * Defines the session authentication strategy.
+     */
+    private static final String[] SWAGGER_WHITELIST = {
+            "/v3/api-docs/**",
+            "/swagger-ui/**",
+            "/swagger-ui.html",
+    };
 
-@Bean
-protected SessionRegistry buildSessionRegistry() {
-return new SessionRegistryImpl();
-}
+    @Bean
+    @Override
+    protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
+        return new RegisterSessionAuthenticationStrategy(buildSessionRegistry());
+    }
 
-@Override
-protected void configure(HttpSecurity http) throws Exception
-{
-super.configure(http);
-http
-.antMatcher(Arrays.toString(SWAGGER_WHITELIST))
-.authorizeRequests()
-.anyRequest().authenticated();
-}
+    @Bean
+    protected SessionRegistry buildSessionRegistry() {
+        return new SessionRegistryImpl();
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        super.configure(http);
+        http
+                .antMatcher(Arrays.toString(SWAGGER_WHITELIST))
+                .authorizeRequests()
+                .anyRequest().authenticated();
+    }
 }

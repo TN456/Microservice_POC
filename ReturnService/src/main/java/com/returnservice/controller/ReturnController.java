@@ -29,8 +29,8 @@ public class ReturnController {
     @Autowired
     private returnProducer returnproducer;
 
-    @PostMapping(value = "/createReturn/myntra", consumes = { MediaType.APPLICATION_XML_VALUE }, produces = {
-            MediaType.APPLICATION_JSON_VALUE })
+    @PostMapping(value = "/createReturn/myntra", consumes = {MediaType.APPLICATION_XML_VALUE}, produces = {
+            MediaType.APPLICATION_JSON_VALUE})
     @PreAuthorize("hasAuthority('Myntra User')")
     @Operation(
             summary = "Create Myntra Return REST API",

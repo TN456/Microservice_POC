@@ -38,13 +38,15 @@ public class ReturnServiceImpl implements ReturnService {
 
         return returnRepository.save(returnModel);
     }
+
     private String generateOrderNumberForMyntra() {
         int count = (int) returnRepository.count();
-        return "RETMYN" + String.format("%03d", count+1);
+        return "RETMYN" + String.format("%03d", count + 1);
     }
+
     private String generateOrderNumberForFlipkart() {
         int count = (int) returnRepository.count();
-        return "RETFLP" + String.format("%03d", count+1);
+        return "RETFLP" + String.format("%03d", count + 1);
     }
 
     @Override
