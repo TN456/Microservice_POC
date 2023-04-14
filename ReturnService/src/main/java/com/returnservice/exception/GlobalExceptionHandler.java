@@ -28,6 +28,7 @@ ErrorObject errorObject = new ErrorObject();
 
 errorObject.setStatusCode(HttpStatus.NOT_FOUND.value());
 
+
 errorObject.setMessage(ex.getMessage());
 
     errorObject.setTimestamp(new Date());
