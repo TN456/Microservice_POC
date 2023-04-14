@@ -1,5 +1,6 @@
 package com.orderservice.exception;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         errorObject.setMessage(ex.getMessage());
 
+        errorObject.setTimestamp(new Date());
+
         return new ResponseEntity<ErrorObject>(errorObject, HttpStatus.NOT_FOUND);
     }
 
@@ -39,6 +42,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         errorObject.setStatusCode(HttpStatus.BAD_REQUEST.value());
 
         errorObject.setMessage(ex.getMessage());
+
+        errorObject.setTimestamp(new Date());
 
         return new ResponseEntity<ErrorObject>(errorObject, HttpStatus.BAD_REQUEST);
     }
@@ -52,15 +57,17 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         errorObject.setMessage(ex.getMessage());
 
+        errorObject.setTimestamp(new Date());
+
         return new ResponseEntity<ErrorObject>(errorObject, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         Map<String, Object> body = new HashMap<String, Object>();
         body.put("Status Code", HttpStatus.BAD_REQUEST.value());
         List<String> errors = ex.getBindingResult().getFieldErrors().stream().map(x -> x.getDefaultMessage()).collect(Collectors.toList());
         body.put("message", errors);
+        body.put("timestamp", new Date());
         return new ResponseEntity<Object>(body, HttpStatus.BAD_REQUEST);
     }
 }
