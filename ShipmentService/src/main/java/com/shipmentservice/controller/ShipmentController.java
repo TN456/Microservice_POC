@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,8 @@ public class ShipmentController {
     @Autowired
     private ShipmentProducer shipmentProducer;
 
-    @PostMapping("/createShipment/myntra")
+    @PostMapping(value="/createShipment/myntra", consumes = { MediaType.APPLICATION_XML_VALUE }, produces = {
+            MediaType.APPLICATION_JSON_VALUE })
     @PreAuthorize("hasAuthority('Myntra User')")
     @Operation(
             summary = "Create Myntra Shipment REST API",
@@ -46,7 +48,8 @@ public class ShipmentController {
         shipmentProducer.sendMessage(savedShipment);
         return new ResponseEntity<ShipmentModel>(savedShipment, HttpStatus.CREATED);
     }
-    @PostMapping("/createShipment/flipkart")
+    @PostMapping(value="/createShipment/flipkart", consumes = { MediaType.APPLICATION_XML_VALUE }, produces = {
+            MediaType.APPLICATION_JSON_VALUE })
     @PreAuthorize("hasAuthority('Flipkart User')")
     @Operation(
             summary = "Create Flipkart Shipment REST API",
