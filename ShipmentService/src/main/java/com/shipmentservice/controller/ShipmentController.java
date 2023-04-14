@@ -1,5 +1,6 @@
 package com.shipmentservice.controller;
 
+import com.orderservice.model.ErrorObject;
 import com.shipmentservice.kafka.ShipmentProducer;
 import com.shipmentservice.model.ShipmentModel;
 import com.shipmentservice.service.ShipmentService;
@@ -10,11 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -48,6 +52,20 @@ public class ShipmentController {
         shipmentProducer.sendMessage(savedShipment);
         return new ResponseEntity<ShipmentModel>(savedShipment, HttpStatus.CREATED);
     }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ErrorObject> handleAccessDeniedException(Exception ex, WebRequest request) {
+        ErrorObject errorObject = new ErrorObject();
+
+        errorObject.setStatusCode(HttpStatus.FORBIDDEN.value());
+
+        errorObject.setMessage(ex.getMessage());
+
+        errorObject.setTimestamp(new Date());
+
+        return new ResponseEntity<ErrorObject>(errorObject,HttpStatus.FORBIDDEN);
+    }
+
     @PostMapping(value="/createShipment/flipkart", consumes = { MediaType.APPLICATION_XML_VALUE }, produces = {
             MediaType.APPLICATION_JSON_VALUE })
     @PreAuthorize("hasAuthority('Flipkart User')")
