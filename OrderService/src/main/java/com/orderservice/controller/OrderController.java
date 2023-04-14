@@ -1,6 +1,7 @@
 package com.orderservice.controller;
 
 import com.orderservice.kafka.OrderProducer;
+import com.orderservice.model.ErrorObject;
 import com.orderservice.model.OrderModel;
 import com.orderservice.service.OrderService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -10,9 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
+
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -45,6 +50,18 @@ public class OrderController {
         OrderModel savedOrder = orderService.saveOrderMyntra(orderModel);
         orderProducer.sendMessage(savedOrder);
         return new ResponseEntity<OrderModel>(savedOrder, HttpStatus.CREATED);
+    }
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ErrorObject> handleAccessDeniedException(Exception ex, WebRequest request) {
+        ErrorObject errorObject = new ErrorObject();
+
+        errorObject.setStatusCode(HttpStatus.FORBIDDEN.value());
+
+        errorObject.setMessage(ex.getMessage());
+
+        errorObject.setTimestamp(new Date());
+
+        return new ResponseEntity<ErrorObject>(errorObject,HttpStatus.FORBIDDEN);
     }
 
     @PostMapping(value = "/createOrder/flipkart", consumes = { MediaType.APPLICATION_XML_VALUE }, produces = {
