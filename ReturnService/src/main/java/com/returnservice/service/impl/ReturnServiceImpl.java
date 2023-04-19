@@ -1,22 +1,43 @@
 package com.returnservice.service.impl;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.returnservice.exception.ResourceNotFoundException;
 import com.returnservice.model.ReturnModel;
 import com.returnservice.repository.ReturnRepository;
 import com.returnservice.service.ReturnService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 
+import static com.ctc.wstx.shaded.msv_core.datatype.xsd.NumberType.save;
+
 @Service
+@Slf4j
 public class ReturnServiceImpl implements ReturnService {
 
     @Autowired
     private ReturnRepository returnRepository;
+    @Autowired
+    private JmsTemplate jmsTemplate;
+    @Autowired
+    private ObjectMapper objectMapper;
 
+
+//    @Override
+//    public ReturnModel saveMyntraReturn(ReturnModel returnModel) {
+//        String returnOrderNumber = generateOrderNumberForMyntra();
+//        returnModel.setReturnOrderNumber(returnOrderNumber);
+//        returnModel.setSource("Myntra");
+//        returnModel.setStatus("RETURNED");
+//        returnModel.setReturnON(new Date());
+//        return returnRepository.save(returnModel);
+//    }
 
     @Override
     public ReturnModel saveMyntraReturn(ReturnModel returnModel) {
@@ -25,7 +46,19 @@ public class ReturnServiceImpl implements ReturnService {
         returnModel.setSource("Myntra");
         returnModel.setStatus("RETURNED");
         returnModel.setReturnON(new Date());
+        String payload=convertToString(returnModel);
+        // convert ReturnOrder to JMS message
+        jmsTemplate.convertAndSend("queueName", payload);
+
         return returnRepository.save(returnModel);
+    }
+    private String convertToString(Object o) {
+        try {
+            return objectMapper.writeValueAsString(o);
+        } catch (JsonProcessingException e) {
+            log.error(" Error converting Object to String" + e.getMessage());
+            return "";
+        }
     }
 
     @Override

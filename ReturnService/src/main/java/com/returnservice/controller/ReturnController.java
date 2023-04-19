@@ -1,5 +1,6 @@
 package com.returnservice.controller;
 
+import com.ibm.mq.jms.MQQueue;
 import com.returnservice.kafkaconsumer.returnProducer;
 import com.returnservice.model.ReturnModel;
 import com.returnservice.service.ReturnService;
@@ -10,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.jms.JMSException;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -28,6 +31,8 @@ public class ReturnController {
     private ReturnService returnService;
     @Autowired
     private returnProducer returnproducer;
+    @Autowired
+    private JmsTemplate jmsTemplate;
 
     @PostMapping(value = "/createReturn/myntra", consumes = {MediaType.APPLICATION_XML_VALUE}, produces = {
             MediaType.APPLICATION_JSON_VALUE})
@@ -43,8 +48,11 @@ public class ReturnController {
     public ResponseEntity<ReturnModel> saveMyntraReturn(@Valid @RequestBody ReturnModel returnModel) {
         ReturnModel savedReturn = returnService.saveMyntraReturn(returnModel);
         returnproducer.sendMessage(savedReturn);
+        jmsTemplate.convertAndSend("QNamePMOC","test1");
         return new ResponseEntity<ReturnModel>(savedReturn, HttpStatus.CREATED);
     }
+
+
 
     @PostMapping("/createReturn/flipkart")
     @PreAuthorize("hasAuthority('Flipkart User')")
