@@ -12,5 +12,7 @@ public interface OrderService {
     OrderModel saveOrderFlipkart(OrderModel orderModel);
     List<OrderModel> getAllOrders();
     OrderModel getOrderById(String orderNumber);
+    OrderModel getOrderByOrderNumber(String orderNumber);
     OrderModel updateOrder(OrderModel orderModel,String orderNumber);
+    void deleteOrder(String orderNumber);
 }

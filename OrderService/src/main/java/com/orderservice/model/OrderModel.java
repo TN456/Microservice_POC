@@ -9,9 +9,10 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Digits;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class OrderModel {
 
     @Id
     @Schema(description = "Order Number")
+    @NotNull(message = "Order Number cannot be empty")
     private String orderNumber;
     @NotNull(message = "Customer name cannot be empty")
     @Schema(description = "Customer Name")
@@ -40,16 +42,18 @@ public class OrderModel {
     @Schema(description = "Customer State")
     private String state;
     @NotNull(message = "Customer email cannot be empty")
-    @Email(message = "Valid email id should be provided")
+    @Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",message = "Valid email id should be provided")
     @Schema(description = "Customer Email")
     private String email;
     @Schema(description = "Customer Zipcode")
+    @Size(min = 5, max = 6, message = "Zipcode must be 5 or 6 digits")
+    @Pattern(regexp = "^[0-9]*$", message = "Zipcode must contain only digits")
     private String zipcode;
     @Schema(description = "Customer Country")
     private String country;
     @NotNull(message = "Customer mobile number cannot be empty")
     @Schema(description = "Customer Mobile number")
-    @Size(max = 10,message = "Mobile number should be of 10 digits")
+    @Digits(integer = 10, fraction = 0, message = "Phone number must be a 10-digit number")
     private String mobile;
     @Schema(description = "Customer Payment Method")
     private String paymentMethod;
@@ -80,7 +84,7 @@ public class OrderModel {
         private double price;
         @NotNull(message = "Quantity cannot be empty")
         @Schema(description = "Item Quantity")
-        @Size(min = 1)
+        @Size(min = 1,max=10,message = "The quantity should be in the range of 1 to 10")
         private int quantity;
     }
 
