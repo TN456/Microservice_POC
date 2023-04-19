@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class JMSListener {
     @JmsListener(destination = "${jmsmq.listener.queue.name}", containerFactory = "mqQueueConnectionFactory")
     public void messageListener(String payload) {
-        System.out.print("payload recieved" +payload);
+        System.out.print("payload recieved" + payload);
         log.debug("Return Recieved  " + payload);
     }
 }

@@ -48,10 +48,9 @@ public class ReturnController {
     public ResponseEntity<ReturnModel> saveMyntraReturn(@Valid @RequestBody ReturnModel returnModel) {
         ReturnModel savedReturn = returnService.saveMyntraReturn(returnModel);
         returnproducer.sendMessage(savedReturn);
-        jmsTemplate.convertAndSend("QNamePMOC","test1");
+        //jmsTemplate.convertAndSend("QNamePMOC","test1");
         return new ResponseEntity<ReturnModel>(savedReturn, HttpStatus.CREATED);
     }
-
 
 
     @PostMapping("/createReturn/flipkart")

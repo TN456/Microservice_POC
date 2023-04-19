@@ -28,17 +28,6 @@ public class ReturnServiceImpl implements ReturnService {
     @Autowired
     private ObjectMapper objectMapper;
 
-
-//    @Override
-//    public ReturnModel saveMyntraReturn(ReturnModel returnModel) {
-//        String returnOrderNumber = generateOrderNumberForMyntra();
-//        returnModel.setReturnOrderNumber(returnOrderNumber);
-//        returnModel.setSource("Myntra");
-//        returnModel.setStatus("RETURNED");
-//        returnModel.setReturnON(new Date());
-//        return returnRepository.save(returnModel);
-//    }
-
     @Override
     public ReturnModel saveMyntraReturn(ReturnModel returnModel) {
         String returnOrderNumber = generateOrderNumberForMyntra();
@@ -52,14 +41,6 @@ public class ReturnServiceImpl implements ReturnService {
 
         return returnRepository.save(returnModel);
     }
-    private String convertToString(Object o) {
-        try {
-            return objectMapper.writeValueAsString(o);
-        } catch (JsonProcessingException e) {
-            log.error(" Error converting Object to String" + e.getMessage());
-            return "";
-        }
-    }
 
     @Override
     public ReturnModel saveFlipkartReturn(ReturnModel returnModel) {
@@ -68,8 +49,20 @@ public class ReturnServiceImpl implements ReturnService {
         returnModel.setSource("Flipkart");
         returnModel.setStatus("RETURNED");
         returnModel.setReturnON(new Date());
+        String payload=convertToString(returnModel);
+        // convert ReturnOrder to JMS message
+        jmsTemplate.convertAndSend("queueName", payload);
 
         return returnRepository.save(returnModel);
+    }
+
+    private String convertToString(Object o) {
+        try {
+            return objectMapper.writeValueAsString(o);
+        } catch (JsonProcessingException e) {
+            log.error(" Error converting Object to String" + e.getMessage());
+            return "";
+        }
     }
 
     private String generateOrderNumberForMyntra() {
