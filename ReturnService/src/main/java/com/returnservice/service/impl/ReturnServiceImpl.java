@@ -4,6 +4,7 @@ package com.returnservice.service.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.returnservice.exception.ResourceNotFoundException;
+import com.returnservice.kafkaconsumer.JmsProducer;
 import com.returnservice.model.ReturnModel;
 import com.returnservice.repository.ReturnRepository;
 import com.returnservice.service.ReturnService;
@@ -24,7 +25,7 @@ public class ReturnServiceImpl implements ReturnService {
     @Autowired
     private ReturnRepository returnRepository;
     @Autowired
-    private JmsTemplate jmsTemplate;
+    private JmsProducer jmsProducer;
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -37,7 +38,8 @@ public class ReturnServiceImpl implements ReturnService {
         returnModel.setReturnON(new Date());
         String payload=convertToString(returnModel);
         // convert ReturnOrder to JMS message
-        jmsTemplate.convertAndSend("returnQueue", payload);
+        jmsProducer.sendMessage("returnQueue",payload);
+//        jmsTemplate.convertAndSend("returnQueue", payload);
 
         return returnRepository.save(returnModel);
     }
@@ -51,7 +53,8 @@ public class ReturnServiceImpl implements ReturnService {
         returnModel.setReturnON(new Date());
         String payload=convertToString(returnModel);
         // convert ReturnOrder to JMS message
-        jmsTemplate.convertAndSend("returnQueue", payload);
+        jmsProducer.sendMessage("returnQueue",payload);
+//        jms.convertAndSend("returnQueue", payload);
 
         return returnRepository.save(returnModel);
     }

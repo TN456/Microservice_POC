@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class JmsProducer {
     @Autowired
     private JmsTemplate jmsTemplate;
-    public void sendMessage(String message) {
-        jmsTemplate.convertAndSend(message);
+    public void sendMessage(String message,String s) {
+        jmsTemplate.convertAndSend(message,s);
     }
 }
