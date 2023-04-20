@@ -37,7 +37,7 @@ public class ReturnServiceImpl implements ReturnService {
         returnModel.setReturnON(new Date());
         String payload=convertToString(returnModel);
         // convert ReturnOrder to JMS message
-        jmsTemplate.convertAndSend("queueName", payload);
+        jmsTemplate.convertAndSend("returnQueue", payload);
 
         return returnRepository.save(returnModel);
     }
@@ -51,7 +51,7 @@ public class ReturnServiceImpl implements ReturnService {
         returnModel.setReturnON(new Date());
         String payload=convertToString(returnModel);
         // convert ReturnOrder to JMS message
-        jmsTemplate.convertAndSend("queueName", payload);
+        jmsTemplate.convertAndSend("returnQueue", payload);
 
         return returnRepository.save(returnModel);
     }

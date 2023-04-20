@@ -48,7 +48,7 @@ public class OrderServiceImpl implements OrderService {
         orderModel.setCreatedAt(new Date());
         String OrderModelToString=convertToString(orderModel);
         // convert OrderModel to JMS message
-        jmsTemplate.convertAndSend("queueName", OrderModelToString);
+        jmsTemplate.convertAndSend("orderQueue", OrderModelToString);
         return orderRepository.save(orderModel);
     }
 
@@ -95,7 +95,7 @@ public class OrderServiceImpl implements OrderService {
         orderModel.setCreatedAt(new Date());
         String StringToOrderModel=convertToString(orderModel);
         // convert OrderModel to JMS message
-        jmsTemplate.convertAndSend("queueName", StringToOrderModel);
+        jmsTemplate.convertAndSend("orderQueue", StringToOrderModel);
         return orderRepository.save(orderModel);
     }
 
