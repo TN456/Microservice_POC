@@ -38,11 +38,11 @@ public class OrderServiceImpl implements OrderService {
             String orderNumber = existingOrder.getOrderNumber();
             throw new OrderExistsException("Order Exists with the orderNumber: " + orderNumber);
         }
-        boolean isOrderNumberReserved = isOrderNumberReserved(orderModel.getOrderNumber());
-        if (!isOrderNumberReserved) {
-            String orderNumber = generateOrderNumberForFlipkart();
-            orderModel.setOrderNumber(orderNumber);
-        }
+//        boolean isOrderNumberReserved = isOrderNumberReserved(orderModel.getOrderNumber());
+//        if (!isOrderNumberReserved) {
+//            String orderNumber = generateOrderNumberForMyntra();
+//            orderModel.setOrderNumber(orderNumber);
+//        }
         orderModel.setStatus("CREATED");
         orderModel.setSource("MYNTRA");
         orderModel.setCreatedAt(new Date());
@@ -70,10 +70,10 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    private boolean isOrderNumberReserved(String orderNumber) {
-        List<String> reservedOrderNumbers = Arrays.asList("FLP001", "FLP002", "FLP003", "MYN001", "MYN002", "MYN003"); // Add reserved order numbers here
-        return reservedOrderNumbers.contains(orderNumber);
-    }
+//    private boolean isOrderNumberReserved(String orderNumber) {
+//        List<String> reservedOrderNumbers = Arrays.asList("FLP001", "FLP002", "FLP003", "MYN001", "MYN002", "MYN003"); // Add reserved order numbers here
+//        return reservedOrderNumbers.contains(orderNumber);
+//    }
 
     @Override
     public OrderModel saveOrderFlipkart(OrderModel orderModel) {
@@ -85,11 +85,13 @@ public class OrderServiceImpl implements OrderService {
             String orderNumber = existingOrder.getOrderNumber();
             throw new OrderExistsException("Order Exists with the orderNumber: " + orderNumber);
         }
-        boolean isOrderNumberReserved = isOrderNumberReserved(orderModel.getOrderNumber());
-        if (!isOrderNumberReserved) {
-            String orderNumber = generateOrderNumberForFlipkart();
-            orderModel.setOrderNumber(orderNumber);
-        }
+//        boolean isOrderNumberReserved = isOrderNumberReserved(orderModel.getOrderNumber());
+//        if (!isOrderNumberReserved) {
+//            String orderNumber = generateOrderNumberForFlipkart();
+//            orderModel.setOrderNumber(orderNumber);
+//        }
+        String orderNumber = generateOrderNumberForMyntra();
+        orderModel.setOrderNumber(orderNumber);
         orderModel.setStatus("CREATED");
         orderModel.setSource("FLIPKART");
         orderModel.setCreatedAt(new Date());

@@ -6,6 +6,7 @@ import com.orderservice.kafka.OrderProducer;
 import com.orderservice.model.ErrorObject;
 import com.orderservice.model.OrderModel;
 import com.orderservice.service.OrderService;
+import com.reservationservice.exception.ReservationNotFoundException;
 import com.reservationservice.model.ReservationModel;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -61,14 +62,24 @@ public class OrderController {
                 .uri(URI.create(reservationApiUrl))
                 .build();
         HttpResponse<InputStream> reservationResponse = httpClient.send(reservationRequest, HttpResponse.BodyHandlers.ofInputStream());
-        if (reservationResponse.statusCode() != HttpStatus.OK.value()) {
-            throw new ResourceNotFoundException("Reservation not found with the order number: "+orderModel.getOrderNumber());
+        if (reservationResponse.statusCode() == HttpStatus.OK.value()) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            ReservationModel reservation = objectMapper.readValue(reservationResponse.body(), ReservationModel.class);
+
+            if ("Reservation Successful".equals(reservation.getStatus())) {
+                // Reservation exists, order can be created
+                OrderModel savedOrder = orderService.saveOrderMyntra(orderModel);
+                orderProducer.sendMessage(savedOrder);
+                return new ResponseEntity<OrderModel>(savedOrder, HttpStatus.CREATED);
+            } else {
+                // Reservation does not exist, order cannot be created
+                throw new ReservationNotFoundException("Reservation not found with the order number: " + orderModel.getOrderNumber());
+            }
+        } else {
+            // Reservation not found
+            throw new ReservationNotFoundException("Reservation not found with the order number: " + orderModel.getOrderNumber());
         }
-        ObjectMapper objectMapper = new ObjectMapper();
-        ReservationModel reservation = objectMapper.readValue(reservationResponse.body(), ReservationModel.class);
-        OrderModel savedOrder = orderService.saveOrderMyntra(orderModel);
-        orderProducer.sendMessage(savedOrder);
-        return new ResponseEntity<OrderModel>(savedOrder, HttpStatus.CREATED);
+
     }
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ErrorObject> handleAccessDeniedException(Exception ex, WebRequest request) {

@@ -48,6 +48,6 @@ public class GlobalExceptionHandler {
 
         errorObject.setTimestamp(new Date());
 
-        return new ResponseEntity<ErrorObject>(errorObject, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<ErrorObject>(errorObject, HttpStatus.CONFLICT);
     }
 }
