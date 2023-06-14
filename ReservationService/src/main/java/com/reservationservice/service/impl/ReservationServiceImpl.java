@@ -21,8 +21,8 @@ import java.util.Optional;
 @Slf4j
 public class ReservationServiceImpl implements ReservationService {
 
-    @Autowired
-    private JmsTemplate jmsTemplate;
+//    @Autowired
+//    private JmsTemplate jmsTemplate;
     @Autowired
     private ObjectMapper objectMapper;
     @Autowired
@@ -42,7 +42,7 @@ public class ReservationServiceImpl implements ReservationService {
             reservationModel.setStatus("Reservation Successful");
             String ReserveModelToOrderString=convertToString(reservationModel);
             // convert ReserveModel to JMS message
-            jmsTemplate.convertAndSend("ReserveQueue", ReserveModelToOrderString);
+//            jmsTemplate.convertAndSend("ReserveQueue", ReserveModelToOrderString);
             return reservationRepository.save(reservationModel);
         }catch (ReservationFailedException e){
             reservationModel.setStatus("Reservation Failed");

@@ -25,8 +25,8 @@ public class OrderServiceImpl implements OrderService {
     private OrderRepository orderRepository;
     @Autowired
     private ObjectMapper objectMapper;
-    @Autowired
-    private JmsTemplate jmsTemplate;
+//    @Autowired
+//    private JmsTemplate jmsTemplate;
 
     @Override
     public OrderModel saveOrderMyntra(OrderModel orderModel) {
@@ -38,17 +38,12 @@ public class OrderServiceImpl implements OrderService {
             String orderNumber = existingOrder.getOrderNumber();
             throw new OrderExistsException("Order Exists with the orderNumber: " + orderNumber);
         }
-//        boolean isOrderNumberReserved = isOrderNumberReserved(orderModel.getOrderNumber());
-//        if (!isOrderNumberReserved) {
-//            String orderNumber = generateOrderNumberForMyntra();
-//            orderModel.setOrderNumber(orderNumber);
-//        }
         orderModel.setStatus("CREATED");
         orderModel.setSource("MYNTRA");
         orderModel.setCreatedAt(new Date());
         String OrderModelToString=convertToString(orderModel);
         // convert OrderModel to JMS message
-        jmsTemplate.convertAndSend("orderQueue", OrderModelToString);
+//        jmsTemplate.convertAndSend("orderQueue", OrderModelToString);
         return orderRepository.save(orderModel);
     }
 
@@ -97,7 +92,7 @@ public class OrderServiceImpl implements OrderService {
         orderModel.setCreatedAt(new Date());
         String StringToOrderModel=convertToString(orderModel);
         // convert OrderModel to JMS message
-        jmsTemplate.convertAndSend("orderQueue", StringToOrderModel);
+//        jmsTemplate.convertAndSend("orderQueue", StringToOrderModel);
         return orderRepository.save(orderModel);
     }
 
