@@ -54,6 +54,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     {
         super.configure(http);
         http
+                .csrf().disable()
                 .antMatcher(Arrays.toString(SWAGGER_WHITELIST))
                 .authorizeRequests()
                 .anyRequest().authenticated();
